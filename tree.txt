@@ -1,0 +1,596 @@
+program
+	person
+		person_type
+		"Henry"
+	person
+		person_type
+		"Larry"
+	person
+		person_type
+		"Leonard"
+	person
+		person_type
+		"professor"
+	apply_sc
+		apply
+			set
+			args
+				arg
+					expr
+						add
+							mul
+								atom
+									apply	health
+				arg
+					expr
+						add
+							mul
+								atom	100
+	apply_sc
+		apply
+			keep
+			args
+				arg
+					cond
+						atomic_cond
+							not_cond
+								rel_cond
+									expr
+										add
+											mul
+												atom
+													apply	health
+									expr
+										add
+											mul
+												atom	0
+	apply_sc
+		apply
+			clamp
+			args
+				arg
+					cond
+						atomic_cond
+							not_cond
+								rel_cond
+									expr
+										add
+											mul
+												atom
+													apply	health
+									expr
+										add
+											mul
+												atom	100
+	func_decl
+		sum
+		params
+			a
+			b
+		ret_stmt
+			args
+				arg
+					expr
+						add
+							mul
+								atom
+									apply
+										a
+										args
+											arg
+												expr
+													add
+														mul
+															atom
+																apply	b
+	func_decl
+		max
+		params
+			a
+			b
+		stmts
+			stmt
+				apply_sc
+					apply
+						set
+						args
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	max
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	b
+			stmt
+				if_stmt
+					if_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	a
+										expr
+											add
+												mul
+													atom
+														apply	max
+						stmts
+							stmt
+								apply_sc
+									apply
+										set
+										args
+											arg
+												expr
+													add
+														mul
+															atom
+																apply	max
+											arg
+												expr
+													add
+														mul
+															atom
+																apply	a
+		ret_stmt
+			args
+				arg
+					expr
+						add
+							mul
+								atom
+									apply	max
+	scene_decl
+		start
+		stmts
+			stmt
+				apply_sc
+					apply
+						pick
+						args
+							arg	"chocolate"
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry's standing in front of the college building with a book in his hands and a fear in his heart."
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Larry's waving at him from a distance."
+			stmt
+				apply_sc
+					apply
+						tell
+						args
+							arg	"Larry"
+							arg	"Henry"
+							arg	"Oh come on, get inside, the exam is already set to begin."
+			stmt
+				if_stmt
+					if_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	health
+										expr
+											add
+												mul
+													atom	10
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"He can't even look up"
+							stmt
+								apply_sc
+									apply	exit
+			stmt
+				choice_stmt
+					"go to the classroom"
+					classroom
+			stmt
+				choice_stmt
+					"run to the cafeteria"
+					mensa
+	scene_decl
+		mensa
+		stmts
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry is running towards the cafeteria, hoping that a nice schnitzel could rip his fears off his chest."
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Leonard sits at the table and laughs."
+			stmt
+				apply_sc
+					apply
+						tell
+						args
+							arg	"Leonard"
+							arg	"Henry"
+							arg	"Running away again, hum?"
+			stmt
+				apply_sc
+					apply
+						set
+						args
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	health
+							arg
+								expr
+									add
+										mul
+											atom
+												apply
+													health
+													args
+														arg
+															expr
+																add
+																	mul
+																		atom	30
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry slips a bit of beans down his throat. Health: "
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	health
+			stmt
+				if_stmt
+					if_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	health
+										expr
+											add
+												mul
+													atom	20
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"He's feeling the semester running rapidly."
+							stmt
+								apply_sc
+									apply	exit
+					else_arm
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"He sums up his courage and goes to the classroom."
+							stmt
+								apply_sc
+									apply
+										enter
+										args
+											arg
+												expr
+													add
+														mul
+															atom
+																apply	classroom
+	scene_decl
+		classroom
+		stmts
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry enters the classroom. The professor's looking at him with no smile on his face."
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry looks at the writing on the blackboard: 'Compilers Exam - 10 tasks, 0 hopes'"
+			stmt
+				apply_sc
+					apply
+						pick
+						args
+							arg	"pen"
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry takes his pen and repeats to himself: 'Don't panic, you know one question at least.'"
+			stmt
+				if_stmt
+					if_arm
+						apply
+							has
+							args
+								arg	"chocolate"
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"The chocolate from his pocket gives him a little strength."
+							stmt
+								apply_sc
+									apply
+										set
+										args
+											arg
+												expr
+													add
+														mul
+															atom
+																apply	health
+											arg
+												expr
+													add
+														mul
+															atom
+																apply
+																	health
+																	args
+																		arg
+																			expr
+																				add
+																					mul
+																						atom	10
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Leonard sits in front of him and whispers "
+			stmt
+				apply_sc
+					apply
+						tell
+						args
+							arg	"Leonard"
+							arg	"Henry"
+							arg	"Buddy, what is a lambda?"
+			stmt
+				apply_sc
+					apply
+						set
+						args
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	health
+							arg
+								expr
+									add
+										mul
+											atom
+												apply
+													health
+													args
+														arg
+															expr
+																add
+																	mul
+																		atom	20
+			stmt
+				apply_sc
+					apply
+						enter
+						args
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	exam
+	scene_decl
+		exam
+		stmts
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"Henry solves the first task. On the second one he sees 'this is not required from students'."
+			stmt
+				if_stmt
+					if_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	health
+										expr
+											add
+												mul
+													atom	50
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"He writes surely, he even starts to smile as he sees the infinite loop."
+					else_arm
+						stmts
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"His hands are shaking, and his pen doesn't even want to write anymore."
+			stmt
+				choice_stmt
+					"finish the test"
+					results
+	scene_decl
+		results
+		stmts
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"The professor is correcting the tests. Henry's sweating as if in a sauna."
+			stmt
+				apply_sc
+					apply
+						rand
+						args
+							arg
+								expr
+									add
+										mul
+											atom
+												apply	res
+							arg
+								expr
+									add
+										mul
+											atom	0
+							arg
+								expr
+									add
+										mul
+											atom	100
+							arg
+								expr
+									add
+										mul
+											atom	1
+			stmt
+				if_stmt
+					if_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	res
+										expr
+											add
+												mul
+													atom	91
+						stmts
+							stmt
+								apply_sc
+									apply
+										tell
+										args
+											arg	"professor"
+											arg	"Henry"
+											arg	"Not bad!"
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"Henry gets an A"
+					elif_arm
+						cond
+							atomic_cond
+								not_cond
+									rel_cond
+										expr
+											add
+												mul
+													atom
+														apply	res
+										expr
+											add
+												mul
+													atom	51
+						stmts
+							stmt
+								apply_sc
+									apply
+										tell
+										args
+											arg	"professor"
+											arg	"Henry"
+											arg	"Passable"
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"Henry gets a D"
+					else_arm
+						stmts
+							stmt
+								apply_sc
+									apply
+										tell
+										args
+											arg	"professor"
+											arg	"Henry"
+											arg	"See you over the summer!"
+							stmt
+								apply_sc
+									apply
+										say
+										args
+											arg	"Henry fails... for now... again."
+							stmt
+								apply_sc
+									apply	exit
+			stmt
+				apply_sc
+					apply
+						say
+						args
+							arg	"The exam has been survived."
