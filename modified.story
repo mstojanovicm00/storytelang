@@ -12,7 +12,7 @@ function max a b:
 set max, b ;
 if a > max:
 set max, a ;
-end
+end ;
 return max ;
 leave
 scene start:
@@ -23,7 +23,7 @@ tell "Larry", "Henry", "Oh come on, get inside, the exam is already set to begin
 if health < 10:
 say "He can't even look up" ;
 exit ;
-end
+end ;
 choice "go to the classroom" -> $classroom ;
 choice "run to the cafeteria" -> $mensa ;
 leave
@@ -36,11 +36,11 @@ say "Henry slips a bit of beans down his throat. Health: ", health ;
 if health < 20:
 say "He's feeling the semester running rapidly." ;
 exit ;
-end
+end ;
 else:
 say "He sums up his courage and goes to the classroom." ;
 enter classroom ;
-end
+end ;
 leave
 scene classroom:
 say "Henry enters the classroom. The professor's looking at him with no smile on his face." ;
@@ -50,7 +50,7 @@ say "Henry takes his pen and repeats to himself: 'Don't panic, you know one ques
 if has "chocolate":
 say "The chocolate from his pocket gives him a little strength." ;
 set health, health + 10 ;
-end
+end ;
 say "Leonard sits in front of him and whispers " ;
 tell "Leonard", "Henry", "Buddy, what is a lambda?" ;
 set health, health - 20 ;
@@ -60,11 +60,11 @@ scene exam:
 say "Henry solves the first task. On the second one he sees 'this is not required from students'." ;
 if health > 50:
 say "He writes surely, he even starts to smile as he sees the infinite loop." ;
-end
+end ;
 else:
 say "His hands are shaking, and his pen doesn't even want to write anymore." ;
-end
-choice "finish the test" -> results ;
+end ;
+choice "finish the test" -> $results ;
 leave
 scene results:
 say "The professor is correcting the tests. Henry's sweating as if in a sauna." ;
@@ -72,15 +72,15 @@ rand res, 0, 100, 1 ;
 if res >= 91:
 tell "professor", "Henry", "Not bad!" ;
 say "Henry gets an A" ;
-end
+end ;
 else if res >= 51:
 tell "professor", "Henry", "Passable" ;
 say "Henry gets a D" ;
-end
+end ;
 else:
 tell "professor", "Henry", "See you over the summer!" ;
 say "Henry fails... for now... again." ;
 exit ;
-end
+end ;
 say "The exam has been survived." ;
 leave

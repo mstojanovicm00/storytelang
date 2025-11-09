@@ -64,7 +64,7 @@ scene exam:
 		say "He writes surely, he even starts to smile as he sees the infinite loop."
 	else:
 		say "His hands are shaking, and his pen doesn't even want to write anymore."
-	choice "finish the test" -> results
+	choice "finish the test" -> $results
 leave
 
 scene results:

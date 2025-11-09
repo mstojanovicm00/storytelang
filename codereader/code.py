@@ -30,8 +30,7 @@ def read_file(filename):
             tabs = count
         return "\n".join([i.strip() for i in res if i.strip() != ';']
                          ).replace(': ;', ':').replace(':;', ':'
-                                                       ).replace('leave ;', 'leave'
-                                                                 ).replace('end ;', 'end')
+                                                       ).replace('leave ;', 'leave')
 
 class Code:
     def __init__(self, filename):
