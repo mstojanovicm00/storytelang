@@ -1,26 +1,39 @@
 grammar = r"""
 
-    program: person+ top_item*
+    program: person+ (apply_sc*)? (func_decl*)? scene_decl+
+    
+    FUNCTION: "function"
+    SCENE: "scene"
+    IF: "if"
+    ELSE: "else"
+    ELIF: "else if"
+    CHOICE: "choice"
+    END: "end"
+    LEAVE: "leave"
+    RETURN: "return"
+    
+    scene_decl: SCENE ID ":" stmts? LEAVE
+    
+    func_decl: FUNCTION ID params? ":" stmts? ret_stmt ";" LEAVE
+    params: ID+
+    ret_stmt: RETURN args?
+    
+    apply_sc: apply ";"
 
     person: person_type STRING ";"
     person_type: "hero" | "friend" | "enemy"
 
-    top_item: "scene" scene_decl | apply_stmt
-
-    scene_decl: ID ":" ";" stmts "end" ";" "leave" ";"
-
-    stmts: (stmt ";" | ";")+
+    stmts: (stmt ";" | ";")*
     stmt: if_stmt | choice_stmt | apply
-    
-    apply_stmt: apply ";"
 
     apply: ID args?
+    
+    if_stmt: if_arm END (elif_arm END)* (else_arm END)?
+    if_arm: IF cond ":" stmts
+    elif_arm: ELIF cond ":" stmts
+    else_arm: ELSE ":" stmts
 
-    if_stmt: "if" cond ":" ";" stmts "end" ";" else_stmt?
-    else_stmt: "else" (else_only | if_stmt)
-    else_only: ":" ";" stmts "end" ";"
-
-    choice_stmt: "choice" STRING "->" "$" ID
+    choice_stmt: CHOICE STRING "->" "$" ID
 
     args: arg ("," arg)*
     arg: STRING | expr | cond
@@ -31,9 +44,8 @@ grammar = r"""
     rel_cond: expr ("=" | "<>" | "<" | ">" | "<=" | ">=") expr
 
     expr: add
-    add: mul (("+" | "-") mul)*
-    mul: unary (("*" | "/" | "//" | "%") atom)*
-    unary: ("+" | "-")? atom
+    add: ("+" | "-")? mul (("+" | "-") mul)*
+    mul: atom (("*" | "/" | "//" | "%") atom)*
     atom: NUMBER | ID | "(" expr ")" | apply
 
     ID: /[a-zA-Z_][a-zA-Z0-9_]*/

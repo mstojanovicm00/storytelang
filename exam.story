@@ -7,6 +7,17 @@ set health, 100
 keep health > 0
 clamp health <= 100
 
+function sum a b:
+    return a + b
+leave
+
+function max a b:
+    set max, b
+    if a > max:
+        set max, a
+    return max
+leave
+
 scene start:
 	pick "chocolate"
 	say "Henry's standing in front of the college building with a book in his hands and a fear in his heart."
